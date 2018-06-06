@@ -218,8 +218,10 @@ Public Class miniXXL
             End If
             Dim dbcmd As SQLiteCommand = New SQLiteCommand()
             dbcmd.Connection = SqliteConn
+
 dbcmd.CommandText = "INSERT INTO Score_Total (CurHost, CurIP, CurDATE,CurTIME,CurSCORE) VALUES ('" & _
 CurHost & "', '" & CurIP & "', '" & CurDate & "', '" & CurTime & "', '" & CDbl(CurScore) & "')"
+
             dbcmd.ExecuteNonQuery()
 
             dbcmd.CommandText = "SELECT CurHost, CurSCORE FROM Score_Total order by CurSCORE"
