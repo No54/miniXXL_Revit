@@ -12,9 +12,10 @@ Imports Autodesk.Revit.UI.Selection
 Public Class miniXXL
     Implements IExternalCommand
 
-    Public Function Execute(commandData As ExternalCommandData, ByRef message As String, elements As ElementSet) As Result Implements IExternalCommand.Execute
+    Public Function Execute(commandData As ExternalCommandData, ByRef message As String, elements As ElementSet) _
+        As Result Implements IExternalCommand.Execute
 
-#Region "¶¨Òåapp,doc,uidoc"
+#Region "å®šä¹‰app,doc,uidoc"
 
         If (Directory.Exists("C:\miniXXL\") = False) Then
             Directory.CreateDirectory("C:\miniXXL\")
@@ -44,7 +45,7 @@ Public Class miniXXL
 
 #End Region
 
-#Region "ÊÕ¼¯¼ÆËã»úÃû¼°IP"
+#Region "æ”¶é›†è®¡ç®—æœºååŠIP"
         Dim CurHost As String = System.Environment.UserName
         Dim CurIP As String = ""
 
@@ -57,7 +58,7 @@ Public Class miniXXL
         Next
 #End Region
 
-#Region "¼ÓÔØ·½¿é×å²¢¼¤»î£¬´´½¨symbol¼¯ºÏ"
+#Region "åŠ è½½æ–¹å—æ—å¹¶æ¿€æ´»ï¼Œåˆ›å»ºsymbolé›†åˆ"
 
         Dim fsRed As FamilySymbol = Nothing
         Dim fsBlue As FamilySymbol = Nothing
@@ -65,11 +66,11 @@ Public Class miniXXL
         Dim fsGreen As FamilySymbol = Nothing
 
         Dim transLoad As Transaction = New Transaction(doc)
-        transLoad.Start("miniXXL¼ÓÔØ×å")
-        Dim loadRed As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\Ğ¡ºì.rfa", "Ğ¡ºì", fsRed)
-        Dim loadBlue As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\Ğ¡À¶.rfa", "Ğ¡À¶", fsBlue)
-        Dim loadYellow As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\Ğ¡»Æ.rfa", "Ğ¡»Æ", fsYellow)
-        Dim loadGreen As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\Ğ¡ÂÌ.rfa", "Ğ¡ÂÌ", fsGreen)
+        transLoad.Start("miniXXLåŠ è½½æ—")
+        Dim loadRed As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\å°çº¢.rfa", "å°çº¢", fsRed)
+        Dim loadBlue As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\å°è“.rfa", "å°è“", fsBlue)
+        Dim loadYellow As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\å°é»„.rfa", "å°é»„", fsYellow)
+        Dim loadGreen As Boolean = doc.LoadFamilySymbol("\\yun\miniXXL\å°ç»¿.rfa", "å°ç»¿", fsGreen)
 
         fsRed.Activate()
         fsBlue.Activate()
@@ -80,7 +81,7 @@ Public Class miniXXL
 
 #End Region
 
-#Region "µÃµ½·½¿é¼¯ºÏ£¬²¢´òÂÒ"
+#Region "å¾—åˆ°æ–¹å—é›†åˆï¼Œå¹¶æ‰“ä¹±"
         Dim fsSet1 As IList(Of FamilySymbol) = New List(Of FamilySymbol)
         Dim fsSet As IList(Of FamilySymbol) = New List(Of FamilySymbol)
         For i = 1 To 16
@@ -97,7 +98,7 @@ Public Class miniXXL
         Next
 #End Region
 
-#Region "¼ÆËãËùÓĞµÄµãxyz"
+#Region "è®¡ç®—æ‰€æœ‰çš„ç‚¹xyz"
         Dim px As Double = 0
         Dim py As Double = 0
         Dim pz As Double = 0
@@ -113,12 +114,12 @@ Public Class miniXXL
         Next
 #End Region
 
-#Region "´´½¨´ó·½¿é"
+#Region "åˆ›å»ºå¤§æ–¹å—"
         Dim InsIdSet As IList(Of ElementId) = New List(Of ElementId)
 
 
         Dim transIns As Transaction = New Transaction(doc)
-        transIns.Start("miniXXL´´½¨Ä£ĞÍ")
+        transIns.Start("miniXXLåˆ›å»ºæ¨¡å‹")
         For i = 0 To 63
 
             Dim Ins As FamilyInstance = doc.Create.NewFamilyInstance(pp.ElementAt(i), fsSet.ElementAt(i), StructuralType.NonStructural)
@@ -128,22 +129,22 @@ Public Class miniXXL
 
 #End Region
 
-#Region "²Ù×÷ÊÓÍ¼"
+#Region "æ“ä½œè§†å›¾"
         Dim V3D As View3D = newV3D(uidoc)
 
         Dim transViewM As Transaction = New Transaction(doc)
-        transViewM.Start("miniXXL´´½¨Ä£ĞÍ")
+        transViewM.Start("miniXXLåˆ›å»ºæ¨¡å‹")
         uidoc.ActiveView.DetailLevel = ViewDetailLevel.Fine
         uidoc.ActiveView.DisplayStyle = DisplayStyle.Realistic
         transViewM.Commit()
 #End Region
 
 
-        MsgBox("µã»÷Á½¸öÏàÍ¬ÑÕÉ«µÄ·½¿é£¬½«·½¿éÏû³ı£¬¿´¿´ÄãÓÃ¶àÉÙÊ±¼äÏû³ıÈ«²¿·½¿é¡£" & vbLf & "µã»÷È·¶¨ÓÎÏ·¿ªÊ¼£¡°´Exc¼üÍË³ö£¡")
+        MsgBox("ç‚¹å‡»ä¸¤ä¸ªç›¸åŒé¢œè‰²çš„æ–¹å—ï¼Œå°†æ–¹å—æ¶ˆé™¤ï¼Œçœ‹çœ‹ä½ ç”¨å¤šå°‘æ—¶é—´æ¶ˆé™¤å…¨éƒ¨æ–¹å—ã€‚" & vbLf & "ç‚¹å‡»ç¡®å®šæ¸¸æˆå¼€å§‹ï¼æŒ‰Excé”®é€€å‡ºï¼")
 
         Dim dt1 As DateTime = DateTime.Now
 
-        '´Ë´¦¼ÓÈë¼ÆÊ±
+        'æ­¤å¤„åŠ å…¥è®¡æ—¶
 
         Dim CubeFilter As New ElementClassFilter(GetType(FamilyInstance))
         Dim CubeCollector As New FilteredElementCollector(doc, uidoc.ActiveView.Id)
@@ -174,7 +175,7 @@ Public Class miniXXL
                    elemA.Id.ToString <> elemB.Id.ToString Then
 
                     Dim transDel As Transaction = New Transaction(doc)
-                    transDel.Start("miniXXLÏûÏûÀÖ")
+                    transDel.Start("miniXXLæ¶ˆæ¶ˆä¹")
                     InsIdSet.Remove(elemA.Id)
                     InsIdSet.Remove(elemB.Id)
                     uidoc.ActiveView.HideElements({elemA.Id, elemB.Id})
@@ -199,7 +200,7 @@ Public Class miniXXL
             Dim CurScore As String = ((dt2 - dt1).TotalSeconds).ToString()
             Dim CurDate As String = dt2.ToLongDateString().ToString()
             Dim CurTime As String = dt2.ToLongTimeString().ToString()
-            Dim CurPP As String = ""                                               'ÓÃÀ´¼ÇÂ¼ÅÅÎ»
+            Dim CurPP As String = ""                                               'ç”¨æ¥è®°å½•æ’ä½
 
             Try
                 Dim sourceFile As String = "\\yun\miniXXL\Score\SCORE.db"
@@ -217,7 +218,8 @@ Public Class miniXXL
             End If
             Dim dbcmd As SQLiteCommand = New SQLiteCommand()
             dbcmd.Connection = SqliteConn
-            dbcmd.CommandText = "INSERT INTO Score_Total (CurHost, CurIP, CurDATE,CurTIME,CurSCORE) VALUES ('" & CurHost & "', '" & CurIP & "', '" & CurDate & "', '" & CurTime & "', '" & CDbl(CurScore) & "')"
+dbcmd.CommandText = "INSERT INTO Score_Total (CurHost, CurIP, CurDATE,CurTIME,CurSCORE) VALUES ('" & _
+CurHost & "', '" & CurIP & "', '" & CurDate & "', '" & CurTime & "', '" & CDbl(CurScore) & "')"
             dbcmd.ExecuteNonQuery()
 
             dbcmd.CommandText = "SELECT CurHost, CurSCORE FROM Score_Total order by CurSCORE"
@@ -256,11 +258,11 @@ Public Class miniXXL
             sqlSR.Close()
             SqliteConn.Close()
 
-            MsgBox("ÓÎÏ·Íê³É£¡¹²ÓÃÊ±" & CurScore & "Ãë£¡" & vbLf &
-               "Ä¿Ç°ÅÅÃûµÚ" & CurPP + 1 & "Î»£¬ÅÅÃûÇ°ÈıÎ»µÄÊÇ£º" & vbLf &
-               "1" & vbTab & nameset.ElementAt(0) & vbTab & scoreset.ElementAt(0) & "Ãë" & vbLf &
-               "2" & vbTab & nameset.ElementAt(1) & vbTab & scoreset.ElementAt(1) & "Ãë" & vbLf &
-               "3" & vbTab & nameset.ElementAt(2) & vbTab & scoreset.ElementAt(2) & "Ãë")
+            MsgBox("æ¸¸æˆå®Œæˆï¼å…±ç”¨æ—¶" & CurScore & "ç§’ï¼" & vbLf &
+               "ç›®å‰æ’åç¬¬" & CurPP + 1 & "ä½ï¼Œæ’åå‰ä¸‰ä½çš„æ˜¯ï¼š" & vbLf &
+               "1" & vbTab & nameset.ElementAt(0) & vbTab & scoreset.ElementAt(0) & "ç§’" & vbLf &
+               "2" & vbTab & nameset.ElementAt(1) & vbTab & scoreset.ElementAt(1) & "ç§’" & vbLf &
+               "3" & vbTab & nameset.ElementAt(2) & vbTab & scoreset.ElementAt(2) & "ç§’")
 
             Try
                 Dim sourceFile As String = "C:\miniXXL\SCORE.db"
@@ -272,7 +274,7 @@ Public Class miniXXL
 
 
         Else
-            MsgBox("ÓÎÏ·ÖĞ¶Ï£¡")
+            MsgBox("æ¸¸æˆä¸­æ–­ï¼")
         End If
 
 
@@ -285,7 +287,7 @@ Public Class miniXXL
     Private Function newV3D(uidoc As UIDocument) As View3D
 
         Dim transNewV3D As Transaction = New Transaction(uidoc.Document)
-        transNewV3D.Start("miniXXL´´½¨ÊÓÍ¼")
+        transNewV3D.Start("miniXXLåˆ›å»ºè§†å›¾")
 
         Dim collector1 As New FilteredElementCollector(uidoc.Document)
         collector1 = collector1.OfClass(GetType(ViewFamilyType))
