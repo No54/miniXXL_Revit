@@ -153,7 +153,7 @@ Public Class miniXXL
         Dim query As IEnumerable(Of Element) = From element In CubeCollector
                                                Select element
 
-       
+
 
         Do
             Try
@@ -179,7 +179,7 @@ Public Class miniXXL
                     InsIdSet.Remove(elemA.Id)
                     InsIdSet.Remove(elemB.Id)
                     uidoc.ActiveView.HideElements({elemA.Id, elemB.Id})
- 
+
                     transDel.Commit()
 
                 End If
@@ -219,8 +219,8 @@ Public Class miniXXL
             Dim dbcmd As SQLiteCommand = New SQLiteCommand()
             dbcmd.Connection = SqliteConn
 
-dbcmd.CommandText = "INSERT INTO Score_Total (CurHost, CurIP, CurDATE,CurTIME,CurSCORE) VALUES ('" & _
-CurHost & "', '" & CurIP & "', '" & CurDate & "', '" & CurTime & "', '" & CDbl(CurScore) & "')"
+            dbcmd.CommandText = "INSERT INTO Score_Total (CurHost, CurIP, CurDATE,CurTIME,CurSCORE) VALUES ('" &
+            CurHost & "', '" & CurIP & "', '" & CurDate & "', '" & CurTime & "', '" & CDbl(CurScore) & "')"
 
             dbcmd.ExecuteNonQuery()
 
@@ -299,7 +299,7 @@ CurHost & "', '" & CurIP & "', '" & CurDate & "', '" & CurTime & "', '" & CDbl(C
                           Let vftype = TryCast(elem, ViewFamilyType)
                           Where vftype.ViewFamily = ViewFamily.ThreeDimensional
                           Select vftype
-       
+
         newV3D = View3D.CreateIsometric(uidoc.Document, viewFamilyTypes.First().Id)
 
         transNewV3D.Commit()
